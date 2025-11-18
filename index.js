@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  res.send("Add path '/api/transform' to use the API");
+  res.json({ error: "Add path '/api/transform' to use the API" });
 });
 
 app.post("/api/transform", (req, res) => {
@@ -21,13 +21,15 @@ app.post("/api/transform", (req, res) => {
   }
 
   const words = sentence.split(/\s+/);
+  const updated_sentence = words.filter((word) => word.length > 0);
+
   const uniqueWords = [
-    ...new Set(words.map((word) => word.toLocaleLowerCase())),
+    ...new Set(updated_sentence.map((word) => word.toLocaleLowerCase())),
   ];
-  const reversedSentence = words.reverse().join(" ");
+  const reversedSentence = updated_sentence.reverse().join(" ");
 
   res.json({
-    word_count: words.length,
+    word_count: updated_sentence.length,
     unique_words: uniqueWords,
     reversed_sentense: reversedSentence,
   });
