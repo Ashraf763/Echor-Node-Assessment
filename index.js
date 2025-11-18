@@ -14,7 +14,7 @@ app.post("/", (req, res) => {
 app.post("/api/transform", (req, res) => {
   const { sentence } = req.body;
 
-  if (!sentence || typeof sentence !== "string") {
+  if (!sentence || typeof sentence !== "string" || !sentence.trim()) {
     return res
       .status(400)
       .json({ error: "Invalid input, Please provide a valid input" });
